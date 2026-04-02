@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import User from "../models/user.model.js";
 import { signupSchema } from "../helper/validation.js";
 import z from "zod";
+import { responseHandler } from "../helper/response.js";
 
 export async function signup(
   req: Request,
@@ -14,8 +15,9 @@ export async function signup(
     const parsedData = signupSchema.safeParse(req.body);
 
     if(!parsedData.success) {
-      res.status(400).json({
-        msg: "Invalid Input",
+      responseHandler(res, {
+        message: "Invalid Input",
+        statusCode: 400,
         error: z.treeifyError(parsedData.error)
       });
       return;
@@ -26,8 +28,10 @@ export async function signup(
     const existingUser = await User.findOne({ email });
 
     if(existingUser) {
-      res.status(409).json({
-        msg: "User already exist, Try to login"
+      responseHandler(res, {
+        message: "User already exist, Try to login",
+        statusCode: 409,
+        error: "User exist with this email id"
       });
       return;
     }
@@ -46,17 +50,19 @@ export async function signup(
       email: newUser.email,
     };
 
-    res.status(201).json({
-      msg: "User created successfully",
+    responseHandler(res, {
+      message: "User created successfully",
+      statusCode: 201,
       data: userResponse
     });
     
   } catch (error) {
     console.error("SignUp Error: ", error);
 
-    res.status(500).json({
-      msg: "Server Error",
-      err: error
+    responseHandler(res, {
+      message: "Server Error",
+      statusCode: 500,
+      error
     });
   }
 }
