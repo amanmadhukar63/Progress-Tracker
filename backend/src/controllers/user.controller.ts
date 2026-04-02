@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import User from "../models/user.model.js";
-import { signupSchema } from "../helper/validation.js";
+import { loginSchema, signupSchema } from "../helper/validation.js";
 import z from "zod";
 import { responseHandler } from "../helper/response.js";
 
@@ -71,5 +71,56 @@ export async function login(
   req: Request,
   res: Response
 ): Promise<void> {
+
+  try {
+    const parsedData = loginSchema.safeParse(req.body);
+
+    if(!parsedData.success){
+      responseHandler(res, {
+        message: "Invalid Input",
+        statusCode: 400,
+        error: z.treeifyError(parsedData.error)
+      });
+      return;
+    }
+
+    const {email, password} = parsedData.data;
+
+    const user = await User.findOne({ email });
+
+    if(!user){
+      responseHandler(res, {
+        message: "User does not exist, Pls signup",
+        statusCode: 400,
+        error: "User not registered"
+      });
+      return;
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if(!isPasswordCorrect){
+      responseHandler(res, {
+        message: "Incorrect password, Try again",
+        statusCode: 400,
+        error: "Wrong password"
+      });
+      return;
+    }
+
+    responseHandler(res, {
+      message: "Login successful",
+      statusCode: 201,
+      data: user
+    });
+
+  } catch (error) {
+    console.error("Error while login", error);
+    responseHandler(res, {
+      message: "Error occured while login",
+      statusCode: 500,
+      error
+    });
+  }
 
 }
