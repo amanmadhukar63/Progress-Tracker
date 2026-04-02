@@ -66,3 +66,10 @@ export async function signup(
     });
   }
 }
+
+export async function login(
+  req: Request,
+  res: Response
+): Promise<void> {
+
+}
