@@ -125,6 +125,17 @@ export async function login(
 
 }
 
-export function logout(){
-  
+export function logout(
+  req: Request,
+  res: Response
+) : void {
+  try {
+    responseHandler(res, {
+      message: "Logout Successfully",
+      statusCode: 201,
+      data: {}
+    });
+  } catch (error) {
+    console.error("Error while logout", error);
+  }
 }
