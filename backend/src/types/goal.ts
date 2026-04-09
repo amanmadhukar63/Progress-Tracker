@@ -7,13 +7,10 @@ export enum IGoalStatus {
 }
 
 export interface IGoal extends Document {
-  _id: Types.ObjectId;
   title: string;
   description: string;
   status: IGoalStatus;
   userId: Types.ObjectId;
   startDate: Date;
   endDate: Date;
-  createdAt: Date;
-  updatedAt: Date;
 }
