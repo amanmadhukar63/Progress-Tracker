@@ -30,4 +30,6 @@ const goalSchema = new Schema<IGoal>({
   { timestamps: true }
 );
 
+goalSchema.index({ userId: 1, createdAt: -1 });
+
 export default model<IGoal>("Goal", goalSchema);

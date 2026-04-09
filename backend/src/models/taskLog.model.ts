@@ -15,7 +15,11 @@ const taskLogSchema = new Schema<ITaskLog>({
   date: {
     type: Date,
     required: true,
-    default: Date.now,
+    set: (val: Date) => {
+      const d = new Date(val);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    },
   },
   status: {
     type: String,
@@ -24,5 +28,12 @@ const taskLogSchema = new Schema<ITaskLog>({
   }
 },
 { timestamps: true });
+
+taskLogSchema.index({
+  userId: 1,
+  taskId: 1,
+  date: -1,
+},
+{ unique: true });
 
 export default model<ITaskLog>("TaskLog", taskLogSchema);
