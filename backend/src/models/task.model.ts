@@ -27,4 +27,10 @@ const taskSchema = new Schema<ITask>({
 },
 { timestamps: true });
 
+taskSchema.index({
+  goalId: 1,
+  createdAt: -1,
+  isActive:1 ,
+});
+
 export default model<ITask>("Task", taskSchema);
