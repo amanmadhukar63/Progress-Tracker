@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import { IGoal, IGoalStatus } from "../types/goal.js";
 
 const goalSchema = new Schema<IGoal>({
@@ -23,7 +23,7 @@ const goalSchema = new Schema<IGoal>({
     type: Date,
   },
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
   }},
