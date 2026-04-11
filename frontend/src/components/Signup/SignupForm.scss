@@ -1,17 +1,26 @@
 .signup-form-container {
-  border: 1px solid green;
   width: 100%;
   max-width: 480px;
 
-  .logo-container {
+  .signup-form-logo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
-    .logo {
+    .signup-form-logo {
       color: #C0C1FF;
       font-size: 30px;
       font-weight: 800;
       line-height: 36px;
       letter-spacing: -1.5px;
       text-align: center;
+    }
+
+    .signup-form-logo-subtext {
+      color: #C7C4D8;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
     }
   }
 }
