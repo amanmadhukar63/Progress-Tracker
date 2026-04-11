@@ -1,5 +1,8 @@
 .signup-page-container {
   width: 100vw;
   height: 100vh;
-  border: 1px solid red;
+  background: url("../../assets/auth-gradient-bg.png") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

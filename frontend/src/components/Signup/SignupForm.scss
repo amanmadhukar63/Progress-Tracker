@@ -1,3 +1,17 @@
 .signup-form-container {
   border: 1px solid green;
+  width: 100%;
+  max-width: 480px;
+
+  .logo-container {
+
+    .logo {
+      color: #C0C1FF;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 36px;
+      letter-spacing: -1.5px;
+      text-align: center;
+    }
+  }
 }
