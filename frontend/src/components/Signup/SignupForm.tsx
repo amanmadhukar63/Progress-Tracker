@@ -1,3 +1,4 @@
+import Button from "../Button/Button";
 import "./SignupForm.scss";
 
 export default function SignupForm() {
@@ -55,6 +56,19 @@ export default function SignupForm() {
               required
             />
             {false && <p className="form__error"></p>}
+          </div>
+
+          {/* Terms and Condition */}
+          <div>
+
+          </div>
+
+          {/* Submit */}
+          <div className="form__field">
+            <Button 
+              title={"Create Workspace"}
+              type="submit"
+            />
           </div>
         </form>
 
