@@ -1,6 +1,9 @@
 .signup-form-container {
   width: 100%;
   max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 
   .signup-form-logo-container {
     display: flex;
@@ -21,6 +24,34 @@
       font-size: 16px;
       font-weight: 500;
       line-height: 24px;
+    }
+  }
+
+  .signup-form-sub-container {
+    border-radius: 12px;
+    padding: 40px;
+    background-color: #171F33B3;
+    text-align: left;
+
+    &__title-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      p {
+        color: #C7C4D8;
+        font-size: 14px;
+        line-height: 20px;
+        margin: 0;
+      }
+
+    }
+
+    &__title {
+      color: #DAE2FD;
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: -0.6px;
     }
   }
 }
