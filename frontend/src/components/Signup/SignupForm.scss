@@ -32,6 +32,9 @@
     padding: 40px;
     background-color: #171F33B3;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 
     &__title-container {
       display: flex;
@@ -52,6 +55,42 @@
       font-size: 24px;
       line-height: 32px;
       letter-spacing: -0.6px;
+    }
+
+    .form {
+
+      &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      &__label {
+        color: #C7C4D8;
+        font-size: 11px;
+        line-height: 16.5px;
+        letter-spacing: 0.55px;
+      }
+
+      &__input {
+        background: #060E20;
+        border: none;
+        padding: 14px 16px;
+        border-radius: 8px;
+        caret-color: #6366f1;
+        color: #6366f1;
+        font-size: 16px;
+
+        &::placeholder {
+          color: #464555;
+          font-size: 16px;
+        }
+
+        &:focus {
+          border: 1px solid #6366f1;
+          outline: none;
+        }
+      }
     }
   }
 }

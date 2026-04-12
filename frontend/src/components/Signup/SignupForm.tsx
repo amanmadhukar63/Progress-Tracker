@@ -14,6 +14,22 @@ export default function SignupForm() {
           <p>Start your journey with The Digital Architect.</p>
         </div>
 
+        <form className="form">
+          {/* Full Name */}
+          <div className="form__field">
+            <label className="form__label">Full Name</label>
+            <input 
+              id="fullName"
+              name="fullName"
+              placeholder="Aman Madhukar"
+              className="form__input" 
+              type="text"
+              required
+            />
+            <p className="form__error"></p>
+          </div>
+        </form>
+
       </div>
     </div>
   );
