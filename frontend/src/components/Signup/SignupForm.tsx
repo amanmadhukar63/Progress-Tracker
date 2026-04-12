@@ -17,7 +17,7 @@ export default function SignupForm() {
         <form className="form">
           {/* Full Name */}
           <div className="form__field">
-            <label className="form__label">Full Name</label>
+            <label htmlFor="fullName" className="form__label">Full Name</label>
             <input 
               id="fullName"
               name="fullName"
@@ -26,7 +26,35 @@ export default function SignupForm() {
               type="text"
               required
             />
-            <p className="form__error"></p>
+            {false && <p className="form__error">Error</p>}
+          </div>
+
+          {/* Email */}
+          <div className="form__field">
+            <label htmlFor="email" className="form__label">Email</label>
+            <input 
+              id="email"
+              name="email"
+              placeholder="aman@example.com"
+              className="form__input" 
+              type="email"
+              required
+            />
+            {false && <p className="form__error"></p>}
+          </div>
+
+          {/* Password */}
+          <div className="form__field">
+            <label htmlFor="email" className="form__label">Password</label>
+            <input 
+              id="password"
+              name="password"
+              placeholder="••••••••"
+              className="form__input" 
+              type="password"
+              required
+            />
+            {false && <p className="form__error"></p>}
           </div>
         </form>
 

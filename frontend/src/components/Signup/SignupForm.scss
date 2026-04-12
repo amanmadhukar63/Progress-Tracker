@@ -58,6 +58,9 @@
     }
 
     .form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
 
       &__field {
         display: flex;
@@ -90,6 +93,16 @@
           border: 1px solid #6366f1;
           outline: none;
         }
+
+        &:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0 1000px #060E20 inset;
+          -webkit-text-fill-color: #6366f1;
+          font-size: 16px;
+        }
+      }
+
+      &__error {
+        margin: 0;
       }
     }
   }
