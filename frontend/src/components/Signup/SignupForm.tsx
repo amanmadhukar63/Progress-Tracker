@@ -8,7 +8,13 @@ export default function SignupForm() {
         <div className="signup-form-logo">Momentum</div>
         <div className="signup-form-logo-subtext">Precision Workplace</div>
       </div>
-      Signup
+      <div className="signup-form-sub-container">
+        <div className="signup-form-sub-container__title-container">
+          <div className="signup-form-sub-container__title">Create an account</div>
+          <p>Start your journey with The Digital Architect.</p>
+        </div>
+
+      </div>
     </div>
   );
 }
