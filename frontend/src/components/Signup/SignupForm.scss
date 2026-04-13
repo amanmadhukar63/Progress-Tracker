@@ -62,6 +62,21 @@
       flex-direction: column;
       gap: 20px;
 
+      &__terms-field {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .terms-input {
+          accent-color: #060E20;
+        }
+
+        .terms-label {
+          color: #C0C1FF;
+          font-size: 12px;
+        }
+      }
+
       &__field {
         display: flex;
         flex-direction: column;

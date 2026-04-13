@@ -59,8 +59,9 @@ export default function SignupForm() {
           </div>
 
           {/* Terms and Condition */}
-          <div>
-
+          <div className="form__terms-field">
+            <input id="terms" className="terms-input" type="checkbox" />
+            <label htmlFor="terms" className="terms-label">I agree to the Terms of Service and Privacy Policy.</label>
           </div>
 
           {/* Submit */}
