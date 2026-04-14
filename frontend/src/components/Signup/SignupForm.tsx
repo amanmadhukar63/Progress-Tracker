@@ -1,7 +1,21 @@
+import type React from "react";
 import Button from "../Button/Button";
 import "./SignupForm.scss";
 
 export default function SignupForm() {
+
+  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>){
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      fullName: formData.get("fullName") as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      terms: formData.get("terms") === "on",
+    };
+
+    console.log(data);
+  }
 
   return (
     <div className="signup-form-container">
@@ -15,7 +29,7 @@ export default function SignupForm() {
           <p>Start your journey with The Digital Architect.</p>
         </div>
 
-        <form className="form">
+        <form className="form" onSubmit={handleSubmit}>
           {/* Full Name */}
           <div className="form__field">
             <label htmlFor="fullName" className="form__label">Full Name</label>
