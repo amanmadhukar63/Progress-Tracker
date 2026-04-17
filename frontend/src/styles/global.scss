@@ -1,0 +1,28 @@
+@use "./variables" as *;
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: $primary;
+  color: $text-color;
+}
+
+.main-layout {
+  border: 1px solid red;
+
+  &__sidebar {
+    border: 1px solid green;
+  }
+
+  &__content {
+    border: 1px solid blue;
+  }
+
+  &__navbar {
+    border: 1px solid red;
+  }
+
+  &__main {
+    border: 1px solid yellow;
+  }
+}

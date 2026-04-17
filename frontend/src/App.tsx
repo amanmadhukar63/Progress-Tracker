@@ -1,4 +1,5 @@
 import './App.css';
+import './styles/global.scss';
 import AppRoutes from './routes/AppRoutes';
 
 function App() {
