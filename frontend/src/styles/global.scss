@@ -8,21 +8,30 @@ body {
 }
 
 .main-layout {
-  border: 1px solid red;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
 
   &__sidebar {
-    border: 1px solid green;
+    border-right: 1px solid white;
+    min-width: 250px;
+    max-width: 300px;
+    width: 20%;
+    height: 100%;
   }
 
   &__content {
-    border: 1px solid blue;
+    flex: 1;
   }
 
   &__navbar {
-    border: 1px solid red;
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
+    height: 7%;
   }
 
   &__main {
-    border: 1px solid yellow;
+    box-sizing: border-box;
+    height: 93%;
   }
 }
