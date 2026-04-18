@@ -1,0 +1,26 @@
+.sidebar-container {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+
+  &__logo-container {
+    border: 1px solid red;
+  }
+
+  &__menu-container {
+    border: 1px solid green;
+  }
+
+  &__button-container {
+    border: 1px solid blue;
+  }
+
+  &__cta-container {
+    border: 1px solid yellow;
+  }
+
+  &__user-container {
+    border: 1px solid red;
+  }
+}
