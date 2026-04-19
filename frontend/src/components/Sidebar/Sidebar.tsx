@@ -10,6 +10,35 @@ const menuItems = [
     },
     icon: DashboardIcon
   },
+
+  {
+    title: "Goals",
+    onClick: () => {
+      console.log("Clicked...");
+    },
+    icon: DashboardIcon
+  },
+  {
+    title: "Tasks",
+    onClick: () => {
+      console.log("Clicked...");
+    },
+    icon: DashboardIcon
+  },
+  {
+    title: "Calender",
+    onClick: () => {
+      console.log("Clicked...");
+    },
+    icon: DashboardIcon
+  },
+  {
+    title: "Profile",
+    onClick: () => {
+      console.log("Clicked...");
+    },
+    icon: DashboardIcon
+  },
 ];
 
 export default function Sidebar(){
