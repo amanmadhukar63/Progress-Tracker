@@ -1,0 +1,30 @@
+@use "../../styles/variables" as *;
+
+.menu-item {
+  background: none;
+  border: none;
+  font-family: inherit;
+  color: $secondary-text;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &:hover {
+    color: $primary-text;
+    background-color: #FFFFFF1A;
+  }
+
+  &--active {
+    color: $primary-text;
+    background-color: #FFFFFF1A;
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0px;
+  }
+}

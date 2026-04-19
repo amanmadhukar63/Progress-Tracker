@@ -1,4 +1,45 @@
+import MenuItem from "../MenuItem/MenuItem";
 import "./Sidebar.scss";
+import DashboardIcon from "../../assets/dashboard-icon.svg";
+
+const menuItems = [
+  {
+    title: "Dashboard",
+    onClick: () => {
+      console.log("Clicked...");
+    },
+    icon: DashboardIcon
+  },
+
+  {
+    title: "Goals",
+    onClick: () => {
+      console.log("Clicked...");
+    },
+    icon: DashboardIcon
+  },
+  {
+    title: "Tasks",
+    onClick: () => {
+      console.log("Clicked...");
+    },
+    icon: DashboardIcon
+  },
+  {
+    title: "Calender",
+    onClick: () => {
+      console.log("Clicked...");
+    },
+    icon: DashboardIcon
+  },
+  {
+    title: "Profile",
+    onClick: () => {
+      console.log("Clicked...");
+    },
+    icon: DashboardIcon
+  },
+];
 
 export default function Sidebar(){
   return (
@@ -8,7 +49,16 @@ export default function Sidebar(){
         <div className="description">Precision Workspace</div>
       </div>
       <div className="sidebar-container__menu-container">
-        Menu
+        {
+          menuItems.map((menuItem, ind) => (
+            <MenuItem
+              key={ind}
+              title={menuItem.title}
+              onClick={menuItem.onClick}
+              icon={menuItem.icon}
+            />
+          ))
+        }
       </div>
       <div className="sidebar-container__button-container">
         Button
