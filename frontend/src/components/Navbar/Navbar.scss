@@ -1,0 +1,13 @@
+@use "../../styles/variables" as *;
+
+.navbar-container {
+  background-color: $navbar-bg;
+  height: 100%;
+  width: 100%;
+  border-bottom: 1px solid $navbar-border;
+  padding: 0 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
