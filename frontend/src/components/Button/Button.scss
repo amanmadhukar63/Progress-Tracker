@@ -15,4 +15,8 @@
     box-shadow: 0 0 10px 1px #5a5bb193;
     transform: translateY(-4px);
   }
+
+  &:focus-visible {
+    outline: 1px solid white;
+  }
 }

@@ -6,7 +6,7 @@ import SearchIcon from "../../assets/search-icon.svg";
 export default function Navbar() {
   return (
     <div className="navbar-container">
-      <div className="navbar-container__search-bar">
+      <div className="navbar-container__search-bar" tabIndex={0}>
         <img src={SearchIcon} alt="search-icon" />
         <div className="placeholder-text">Search tasks, goals, or metrics...</div>
       </div>
