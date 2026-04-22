@@ -12,7 +12,7 @@
   transition: transform 0.1s ease-in-out;
 
   &:hover {
-    box-shadow: 0 10px 20px 0 #5a5bb193;
+    box-shadow: 0 0 10px 1px #5a5bb193;
     transform: translateY(-4px);
   }
 }

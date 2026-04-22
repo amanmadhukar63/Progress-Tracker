@@ -5,7 +5,6 @@ interface IMenuItem {
   icon?: string;
   onClick: () => void;
   active?: boolean;
-  key: number;
 };
 
 export default function MenuItem({
@@ -13,11 +12,9 @@ export default function MenuItem({
   icon: Icon,
   onClick,
   active = false,
-  key,
 } : IMenuItem ) {
   return (
     <button
-      key={key}
       className={`menu-item ${active ? "menu-item--active" : ""}`}
       onClick={onClick}
     >
