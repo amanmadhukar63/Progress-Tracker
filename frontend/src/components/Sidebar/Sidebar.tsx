@@ -8,68 +8,62 @@ import ProfileIcon from "../../assets/profile-icon.svg";
 import SettingIcon from "../../assets/setting-icon.svg";
 import LogoutIcon from "../../assets/logout-icon.svg";
 import Button from "../Button/Button";
-
-const menuItems = [
-  {
-    title: "Dashboard",
-    onClick: () => {
-      console.log("Clicked...");
-    },
-    icon: DashboardIcon
-  },
-
-  {
-    title: "Goals",
-    onClick: () => {
-      console.log("Clicked...");
-    },
-    icon: GoalIcon
-  },
-  {
-    title: "Tasks",
-    onClick: () => {
-      console.log("Clicked...");
-    },
-    icon: TaskIcon
-  },
-  {
-    title: "Calender",
-    onClick: () => {
-      console.log("Clicked...");
-    },
-    icon: CalendarIcon
-  },
-  {
-    title: "Profile",
-    onClick: () => {
-      console.log("Clicked...");
-    },
-    icon: ProfileIcon
-  },
-];
-
-const ctas = [
-  {
-    title: "Settings",
-    onClick: () => {
-      console.log("Clicked...");
-    },
-    icon: SettingIcon
-  },
-
-  {
-    title: "Logout",
-    onClick: () => {
-      console.log("Clicked...");
-    },
-    icon: LogoutIcon
-  },
-];
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar(){
+
+  const navigate = useNavigate();
+
+  const menuItems = [
+    {
+      title: "Dashboard",
+      path: "/dashboard",
+      icon: DashboardIcon
+    },
+
+    {
+      title: "Goals",
+      path: "/goals",
+      icon: GoalIcon
+    },
+    {
+      title: "Tasks",
+      path: "/tasks",
+      icon: TaskIcon
+    },
+    {
+      title: "Calender",
+      path: "/calender",
+      icon: CalendarIcon
+    },
+    {
+      title: "Profile",
+      path: "/profile",
+      icon: ProfileIcon
+    },
+  ];
+
+  const ctas = [
+    {
+      title: "Settings",
+      path: "/dashboard",
+      icon: SettingIcon
+    },
+
+    {
+      title: "Logout",
+      path: "/dashboard",
+      icon: LogoutIcon
+    },
+  ];
+
+  function moveToPage(path: string) {
+    navigate(path);
+  }
+
   return (
     <div className="sidebar-container">
-      <div className="sidebar-container__logo-container">
+      <div className="sidebar-container__logo-container" onClick={() => moveToPage("/")}>
         <div className="logo">Momentum</div>
         <div className="description">Precision Workspace</div>
       </div>
@@ -79,8 +73,9 @@ export default function Sidebar(){
             <MenuItem
               key={ind}
               title={menuItem.title}
-              onClick={menuItem.onClick}
+              onClick={() => moveToPage(menuItem.path)}
               icon={menuItem.icon}
+              active={window.location.pathname === menuItem.path}
             />
           ))
         }
@@ -101,12 +96,12 @@ export default function Sidebar(){
       </div>
       <div className="sidebar-container__cta-container">
         {
-          ctas.map((menuItem, ind) => (
+          ctas.map((cta, ind) => (
             <MenuItem
               key={ind}
-              title={menuItem.title}
-              onClick={menuItem.onClick}
-              icon={menuItem.icon}
+              title={cta.title}
+              onClick={() => moveToPage(cta.path)}
+              icon={cta.icon}
             />
           ))
         }
