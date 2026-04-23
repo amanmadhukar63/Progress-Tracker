@@ -6,6 +6,8 @@ import DashboardPage from "../pages/DashboardPage/DashboardPage";
 import GoalsPage from "../pages/GoalsPage/GoalsPage";
 import CalenderPage from "../pages/CalenderPage/CalenderPage";
 import TasksPage from "../pages/TasksPage/TasksPage";
+import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import SettingsPage from "../pages/SettingsPage/SettingsPage";
 
 export default function AppRoutes() {
   return (
@@ -17,6 +19,8 @@ export default function AppRoutes() {
           <Route path="/goals" element={<GoalsPage />} />
           <Route path="/calender" element={<CalenderPage />} />
           <Route path="/tasks" element={<TasksPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Route>
         <Route path="/signup" element={<SignupPage />} />
       </Routes>

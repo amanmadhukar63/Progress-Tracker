@@ -46,7 +46,7 @@ export default function Sidebar(){
   const ctas = [
     {
       title: "Settings",
-      path: "/dashboard",
+      path: "/settings",
       icon: SettingIcon
     },
 
@@ -102,6 +102,7 @@ export default function Sidebar(){
               title={cta.title}
               onClick={() => moveToPage(cta.path)}
               icon={cta.icon}
+              active={window.location.pathname === cta.path}
             />
           ))
         }
