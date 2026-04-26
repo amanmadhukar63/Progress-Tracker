@@ -13,8 +13,8 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route element={<MainLayout />}>
-          <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/goals" element={<GoalsPage />} />
           <Route path="/calender" element={<CalenderPage />} />
