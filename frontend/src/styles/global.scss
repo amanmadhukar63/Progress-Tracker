@@ -34,3 +34,9 @@ body {
     background-color: $layout-bg;
   }
 }
+
+.gradient-text {
+  background: linear-gradient(90deg, #7e80ff 0%, #494BD6 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
