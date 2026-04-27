@@ -2,7 +2,6 @@
   border: none;
   padding: 14px 0;
   border-radius: 8px;
-  background: linear-gradient(97.44deg, #C0C1FF 0%, #4B4DD8 100%);
 
   cursor: pointer;
   color: #1000A9;
@@ -12,11 +11,25 @@
   transition: transform 0.1s ease-in-out;
 
   &:hover {
-    box-shadow: 0 0 10px 1px #5a5bb193;
     transform: translateY(-4px);
   }
 
   &:focus-visible {
     outline: 1px solid white;
+  }
+
+  &--primary {
+    background: linear-gradient(97.44deg, #C0C1FF 0%, #4B4DD8 100%);
+
+    &:hover {
+      box-shadow: 0 0 10px 1px #5a5bb193;
+    }
+  }
+
+  &--secondary {
+    background: #222A3D;
+    border: 1px solid #4645551A;
+    color: #DAE2FD;
+
   }
 }
