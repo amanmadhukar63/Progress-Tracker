@@ -10,10 +10,20 @@ export default function Home() {
       <div className="home-container__subtext">
         Kinetic is a high-end workspace designed for precision progress. Experience a friction-less workflow that turns long-term goals into daily execution.
       </div>
-      <div>
+      <div className="home-container__btn-container">
         <Button
           title={"Get Started"}
           type="button"
+          style={{
+            padding: "16px 32px",
+            borderRadius: "12px",
+            lineHeight: "normal",
+          }}
+        />
+        <Button
+          title={"Learn More"}
+          type="button"
+          variant={"secondary"}
           style={{
             padding: "16px 32px",
             borderRadius: "12px",
