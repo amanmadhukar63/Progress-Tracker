@@ -1,9 +1,47 @@
+import { useEffect, useRef } from "react";
 import Button from "../Button/Button";
 import "./Home.scss";
+import { createAnimatable } from "animejs";
 
 export default function Home() {
+
+  const ballRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const ball = ballRef.current;
+    if (!ball) return;
+  
+    const animatable = createAnimatable(ball, {
+      x: 500,
+      y: 500,
+      ease: "outElastic",
+    });
+  
+    const handleMouseMove = (e: MouseEvent) => {
+      const parentRect = ball.parentElement?.getBoundingClientRect();
+      if (!parentRect) return;
+    
+      const rect = ball.getBoundingClientRect();
+      const halfW = rect.width / 2;
+      const halfH = rect.height / 2;
+    
+      const x = e.clientX - parentRect.left - halfW;
+      const y = e.clientY - parentRect.top - halfH;
+    
+      animatable.x(x);
+      animatable.y(y);
+    };
+  
+    window.addEventListener("mousemove", handleMouseMove);
+  
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   return (
     <div className="home-container">
+       <div className="cursor-ball" ref={ballRef} />
       <div className="home-container__hero-title">
         Master Your <span className="gradient-text">Momentum</span>
       </div>
