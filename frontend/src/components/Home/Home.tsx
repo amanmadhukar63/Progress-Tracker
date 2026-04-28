@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import Button from "../Button/Button";
 import "./Home.scss";
 import { createAnimatable } from "animejs";
+import ContributionGraph from "../../assets/contribution-graph.svg";
 
 export default function Home() {
 
@@ -40,34 +41,39 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="home-container">
-       <div className="cursor-ball" ref={ballRef} />
-      <div className="home-container__hero-title">
-        Master Your <span className="gradient-text">Momentum</span>
+    <div>
+      <div className="home-container">
+        <div className="cursor-ball" ref={ballRef} />
+        <div className="home-container__hero-title">
+          Master Your <span className="gradient-text">Momentum</span>
+        </div>
+        <div className="home-container__subtext">
+          Kinetic is a high-end workspace designed for precision progress. Experience a friction-less workflow that turns long-term goals into daily execution.
+        </div>
+        <div className="home-container__btn-container">
+          <Button
+            title={"Get Started"}
+            type="button"
+            style={{
+              padding: "16px 32px",
+              borderRadius: "12px",
+              lineHeight: "normal",
+            }}
+          />
+          <Button
+            title={"Learn More"}
+            type="button"
+            variant={"secondary"}
+            style={{
+              padding: "16px 32px",
+              borderRadius: "12px",
+              lineHeight: "normal",
+            }}
+          />
+        </div>
       </div>
-      <div className="home-container__subtext">
-        Kinetic is a high-end workspace designed for precision progress. Experience a friction-less workflow that turns long-term goals into daily execution.
-      </div>
-      <div className="home-container__btn-container">
-        <Button
-          title={"Get Started"}
-          type="button"
-          style={{
-            padding: "16px 32px",
-            borderRadius: "12px",
-            lineHeight: "normal",
-          }}
-        />
-        <Button
-          title={"Learn More"}
-          type="button"
-          variant={"secondary"}
-          style={{
-            padding: "16px 32px",
-            borderRadius: "12px",
-            lineHeight: "normal",
-          }}
-        />
+      <div>
+        <img src={ContributionGraph} alt="contribution graph" />
       </div>
     </div>
   );
