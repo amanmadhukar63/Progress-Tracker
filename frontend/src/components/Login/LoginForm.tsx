@@ -1,9 +1,9 @@
 import type React from "react";
 import Button from "../Button/Button";
-import "./SignupForm.scss";
+import "./LoginForm.scss";
 import { Link } from "react-router-dom";
 
-export default function SignupForm() {
+export default function LoginForm() {
 
   function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>){
     e.preventDefault();
@@ -19,20 +19,20 @@ export default function SignupForm() {
   }
 
   return (
-    <div className="signup-form-container">
-      <div className="signup-form-logo-container">
-        <div className="signup-form-logo">Momentum</div>
-        <div className="signup-form-logo-subtext">Precision Workplace</div>
+    <div className="login-form-container">
+      <div className="login-form-logo-container">
+        <div className="login-form-logo">Momentum</div>
+        <div className="login-form-logo-subtext">Precision Workplace</div>
       </div>
-      <div className="signup-form-sub-container">
-        <div className="signup-form-sub-container__title-container">
-          <div className="signup-form-sub-container__title">Create an account</div>
-          <p>Start your journey with The Digital Architect.</p>
+      <div className="login-form-sub-container">
+        <div className="login-form-sub-container__title-container">
+          <div className="login-form-sub-container__title">Welcome back</div>
+          <p>Continue your journey with The Digital Architect.</p>
         </div>
 
         <form className="form" onSubmit={handleSubmit}>
           {/* Full Name */}
-          <div className="form__field">
+          {/* <div className="form__field">
             <label htmlFor="fullName" className="form__label">Full Name</label>
             <input 
               id="fullName"
@@ -43,7 +43,7 @@ export default function SignupForm() {
               required
             />
             {false && <p className="form__error">Error</p>}
-          </div>
+          </div> */}
 
           {/* Email */}
           <div className="form__field">
@@ -88,11 +88,11 @@ export default function SignupForm() {
           </div>
         </form>
 
-        <div className="old-user-container">
-          Already have an account? 
+        <div className="new-user-container">
+          Don't have an account? 
           <span>
-            <Link to={"/login"}>
-              Login
+            <Link to={"/signup"}>
+              SignUp
             </Link>
           </span>
         </div>
