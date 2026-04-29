@@ -7,16 +7,18 @@ interface IButton {
   variant?: "primary" | "secondary";
   title: String;
   style?: React.CSSProperties;
+  onClick?: () => void;
 }
 
 export default function Button({
   title,
   type = "button",
   variant = "primary",
-  style = {}
+  style = {},
+  onClick = () => {},
 }: IButton) : ReactElement {
   return (
-    <button type={type} className={`button button--${variant}`} style={style}>
+    <button onClick={onClick} type={type} className={`button button--${variant}`} style={style}>
       {title}
     </button>
   );

@@ -1,43 +1,30 @@
-import { useState, useEffect } from "react";
+const TOKEN_KEY = "token";
 
-type SetValue<T> = (value: T | ((prev: T) => T)) => void;
+export function useLocalStorage() {
 
-export function useLocalStorage<T>(
-  key: string,
-  initialValue: T
-): [T, SetValue<T>, () => void] {
-  const readValue = (): T => {
+  const getToken = () => {
     try {
-      const item = localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      const item = localStorage.getItem(TOKEN_KEY);
+      return item ? JSON.parse(item) : null;
     } catch (error) {
-      console.error("Error reading localStorage key:", key, error);
-      return initialValue;
+      console.error("Error reading localStorage key:", TOKEN_KEY, error);
+      return null;
     }
   };
 
-  const [value, setValue] = useState<T>(readValue);
-
-  useEffect(() => {
+  const clearLocalStorage = () => {
     try {
-      localStorage.setItem(key, JSON.stringify(value));
+      localStorage.removeItem(TOKEN_KEY);
     } catch (error) {
-      console.error("Error setting localStorage key:", key, error);
-    }
-  }, [key, value]);
-
-  const updateValue: SetValue<T> = (val) => {
-    setValue((prev) => (val instanceof Function ? val(prev) : val));
-  };
-
-  const remove = () => {
-    try {
-      localStorage.removeItem(key);
-      setValue(initialValue);
-    } catch (error) {
-      console.error("Error removing localStorage key:", key, error);
+      console.error("Error removing localStorage key:", TOKEN_KEY, error);
     }
   };
 
-  return [value, updateValue, remove];
+  const userLoggedIn = getToken() ? true : false;
+
+  return {
+    userLoggedIn,
+    getToken,
+    clearLocalStorage,
+  };
 }

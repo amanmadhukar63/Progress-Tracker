@@ -1,18 +1,18 @@
 @use "../../styles/variables" as *;
 
-.signup-form-container {
+.login-form-container {
   width: 100%;
   max-width: 480px;
   display: flex;
   flex-direction: column;
   gap: 40px;
 
-  .signup-form-logo-container {
+  .login-form-logo-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
 
-    .signup-form-logo {
+    .login-form-logo {
       color: #C0C1FF;
       font-size: 30px;
       font-weight: 800;
@@ -21,7 +21,7 @@
       text-align: center;
     }
 
-    .signup-form-logo-subtext {
+    .login-form-logo-subtext {
       color: #C7C4D8;
       font-size: 16px;
       font-weight: 500;
@@ -29,7 +29,7 @@
     }
   }
 
-  .signup-form-sub-container {
+  .login-form-sub-container {
     border-radius: 12px;
     padding: 40px;
     background-color: #171F33B3;
@@ -125,7 +125,7 @@
   }
 }
 
-.old-user-container {
+.new-user-container {
   display: flex;
   justify-content: center;
   gap: 10px;

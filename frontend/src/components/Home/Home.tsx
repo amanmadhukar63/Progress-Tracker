@@ -3,8 +3,13 @@ import Button from "../Button/Button";
 import "./Home.scss";
 import { createAnimatable } from "animejs";
 import ContributionGraph from "../../assets/contribution-graph.svg";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+
+  const { userLoggedIn } = useLocalStorage();
+  const navigate = useNavigate();
 
   const ballRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,6 +45,14 @@ export default function Home() {
     };
   }, []);
 
+  function handleGetStarted() {
+    if(userLoggedIn) {
+      navigate("/dashboard");
+      return;
+    }
+    navigate("/login");
+  }
+
   return (
     <div>
       <div className="home-container">
@@ -53,6 +66,7 @@ export default function Home() {
         <div className="home-container__btn-container">
           <Button
             title={"Get Started"}
+            onClick={handleGetStarted}
             type="button"
             style={{
               padding: "16px 32px",
