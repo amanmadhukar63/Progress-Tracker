@@ -1,30 +1,49 @@
-const TOKEN_KEY = "token";
+const USER_KEY = "user";
 
 export function useLocalStorage() {
 
-  const getToken = () => {
+  function setUser(data: any) {
     try {
-      const item = localStorage.getItem(TOKEN_KEY);
+      localStorage.setItem(USER_KEY, JSON.stringify(data));
+    } catch (error) {
+      console.error("Error while setting user", error);
+    }
+  }
+
+  function getUser() {
+    try {
+      const item = localStorage.getItem(USER_KEY);
       return item ? JSON.parse(item) : null;
     } catch (error) {
-      console.error("Error reading localStorage key:", TOKEN_KEY, error);
+      console.error("Error reading localStorage key:", USER_KEY, error);
+      return null;
+    }
+  }
+
+  const getToken = () => {
+    try {
+      return getUser().token;
+    } catch (error) {
+      console.error("Error reading localStorage key:", error);
       return null;
     }
   };
 
   const clearLocalStorage = () => {
     try {
-      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
     } catch (error) {
-      console.error("Error removing localStorage key:", TOKEN_KEY, error);
+      console.error("Error removing localStorage key:", error);
     }
   };
 
-  const userLoggedIn = getToken() ? true : false;
+  const userLoggedIn = getUser() ? true : false;
 
   return {
     userLoggedIn,
     getToken,
     clearLocalStorage,
+    getUser,
+    setUser,
   };
 }

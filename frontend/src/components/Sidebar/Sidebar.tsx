@@ -9,10 +9,12 @@ import SettingIcon from "../../assets/setting-icon.svg";
 import LogoutIcon from "../../assets/logout-icon.svg";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export default function Sidebar(){
 
   const navigate = useNavigate();
+  const { clearLocalStorage } = useLocalStorage();
 
   const menuItems = [
     {
@@ -49,16 +51,15 @@ export default function Sidebar(){
       path: "/settings",
       icon: SettingIcon
     },
-
-    {
-      title: "Logout",
-      path: "/dashboard",
-      icon: LogoutIcon
-    },
   ];
 
   function moveToPage(path: string) {
     navigate(path);
+  }
+
+  function logoutHandler() {
+    clearLocalStorage();
+    navigate("/");
   }
 
   return (
@@ -106,6 +107,12 @@ export default function Sidebar(){
             />
           ))
         }
+        <MenuItem
+          key={-1}
+          title={"Logout"}
+          onClick={logoutHandler}
+          icon={LogoutIcon}
+        />
       </div>
       <div className="sidebar-container__user-container">
         <div className="profile-picture">A</div>

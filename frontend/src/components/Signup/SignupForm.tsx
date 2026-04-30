@@ -1,12 +1,16 @@
 import type React from "react";
 import Button from "../Button/Button";
 import "./SignupForm.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import { BACKEND_BASE_URL } from "../../vite-env.d";
+import LoadingPage from "../../pages/LoadingPage/LoadingPage";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export default function SignupForm() {
 
+  const { setUser } = useLocalStorage();
+  const navigate = useNavigate();
   const { execute, loading } = useFetch(`${BACKEND_BASE_URL}/api/user/signup`, { skip: true });
 
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>){
@@ -19,16 +23,18 @@ export default function SignupForm() {
       // terms: formData.get("terms") === "on",
     };
 
-    const data = await execute({
+    const { data } = await execute({
       method: "POST",
       body: payload,
     });
 
-    console.log(data);
+    setUser(data);
+    navigate("/dashboard");
   }
 
   return (
     <div className="signup-form-container">
+      {loading && <LoadingPage />}
       <div className="signup-form-logo-container">
         <div className="signup-form-logo">Momentum</div>
         <div className="signup-form-logo-subtext">Precision Workplace</div>
