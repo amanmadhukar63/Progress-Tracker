@@ -4,6 +4,9 @@ import User from "../models/user.model.js";
 import { loginSchema, signupSchema } from "../helper/validation.js";
 import z from "zod";
 import { responseHandler } from "../helper/response.js";
+import { IUser } from "../types/user.js";
+import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../config/env.js";
 
 export async function signup(
   req: Request,
@@ -38,16 +41,29 @@ export async function signup(
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({
+    const refreshToken = await jwt.sign({
+      name,
+      email
+    }, JWT_SECRET, { expiresIn: "15d"});
+
+    const newUser: IUser = await User.create({
       name,
       email,
-      password: hashedPassword
+      password: hashedPassword,
+      refreshToken
     });
 
+    const token = await jwt.sign({
+      name,
+      email
+    }, JWT_SECRET, { expiresIn: "15m"});
+
     const userResponse = {
-      _id: newUser._id,
+      id: newUser._id,
       name: newUser.name,
       email: newUser.email,
+      token,
+      refreshToken
     };
 
     responseHandler(res, {
@@ -86,7 +102,7 @@ export async function login(
 
     const {email, password} = parsedData.data;
 
-    const user = await User.findOne({ email });
+    const user: IUser | null = await User.findOne({ email });
 
     if(!user){
       responseHandler(res, {
@@ -108,10 +124,23 @@ export async function login(
       return;
     }
 
+    const token = await jwt.sign({
+      name: user.name,
+      email: user.email,
+    }, JWT_SECRET, { expiresIn: "15m"});
+
+    const userResponse = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      token,
+      refreshToken: user.refreshToken,
+    };
+
     responseHandler(res, {
       message: "Login successful",
       statusCode: 201,
-      data: user
+      data: userResponse,
     });
 
   } catch (error) {
@@ -123,19 +152,4 @@ export async function login(
     });
   }
 
-}
-
-export function logout(
-  req: Request,
-  res: Response
-) : void {
-  try {
-    responseHandler(res, {
-      message: "Logout Successfully",
-      statusCode: 201,
-      data: {}
-    });
-  } catch (error) {
-    console.error("Error while logout", error);
-  }
 }
