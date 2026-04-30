@@ -2,18 +2,27 @@ import type React from "react";
 import Button from "../Button/Button";
 import "./SignupForm.scss";
 import { Link } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
+import { BACKEND_BASE_URL } from "../../vite-env.d";
 
 export default function SignupForm() {
 
-  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>){
+  const { execute, loading } = useFetch(`${BACKEND_BASE_URL}/api/user/signup`, { skip: true });
+
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>){
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = {
-      fullName: formData.get("fullName") as string,
+    const payload = {
+      name: formData.get("fullName") as string,
       email: formData.get("email") as string,
       password: formData.get("password") as string,
-      terms: formData.get("terms") === "on",
+      // terms: formData.get("terms") === "on",
     };
+
+    const data = await execute({
+      method: "POST",
+      body: payload,
+    });
 
     console.log(data);
   }

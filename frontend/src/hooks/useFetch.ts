@@ -4,7 +4,7 @@ type UseFetchOptions = {
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   headers?: Record<string, string>;
   body?: any;
-  skip?: boolean; // optional: to prevent auto fetch
+  skip?: boolean;
 };
 
 type UseFetchResponse<T> = {
@@ -12,6 +12,7 @@ type UseFetchResponse<T> = {
   loading: boolean;
   error: string | null;
   refetch: () => void;
+  execute: (override?: Partial<UseFetchOptions>) => Promise<T | null>;
 };
 
 export function useFetch<T = any>(
@@ -26,28 +27,24 @@ export function useFetch<T = any>(
   const [error, setError] = useState<string | null>(null);
   const [reload, setReload] = useState(0);
 
-  const refetch = useCallback(() => {
-    setReload((prev) => prev + 1);
-  }, []);
+  const fetchData = useCallback(
+    async (override?: Partial<UseFetchOptions>) => {
+      const finalMethod = override?.method || method;
+      const finalHeaders = { ...headers, ...(override?.headers || {}) };
+      const finalBody = override?.body ?? body;
 
-  useEffect(() => {
-    if (skip) return;
-
-    const controller = new AbortController();
-
-    const fetchData = async () => {
       setLoading(true);
       setError(null);
 
       try {
         const res = await fetch(url, {
-          method,
+          method: finalMethod,
           headers: {
             "Content-Type": "application/json",
-            ...headers,
+            ...finalHeaders,
           },
-          body: body ? JSON.stringify(body) : undefined,
-          signal: controller.signal,
+          credentials: "include",
+          body: finalBody ? JSON.stringify(finalBody) : undefined,
         });
 
         if (!res.ok) {
@@ -56,21 +53,25 @@ export function useFetch<T = any>(
 
         const result = await res.json();
         setData(result);
+        return result;
       } catch (err: any) {
-        if (err.name !== "AbortError") {
-          setError(err.message || "Something went wrong");
-        }
+        setError(err.message || "Something went wrong");
+        return null;
       } finally {
         setLoading(false);
       }
-    };
+    },
+    [url, method, headers, body]
+  );
 
+  const refetch = useCallback(() => {
+    setReload((prev) => prev + 1);
+  }, []);
+
+  useEffect(() => {
+    if (skip) return;
     fetchData();
+  }, [reload, skip, ...deps]);
 
-    return () => {
-      controller.abort();
-    };
-  }, [url, reload, skip, ...deps]);
-
-  return { data, loading, error, refetch };
+  return { data, loading, error, refetch, execute: fetchData };
 }
