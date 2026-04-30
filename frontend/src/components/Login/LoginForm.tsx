@@ -1,25 +1,39 @@
 import type React from "react";
 import Button from "../Button/Button";
 import "./LoginForm.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useFetch } from "../../hooks/useFetch";
+import { BACKEND_BASE_URL } from "../../vite-env.d";
+import LoadingPage from "../../pages/LoadingPage/LoadingPage";
 
 export default function LoginForm() {
 
-  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>){
+  const { setUser } = useLocalStorage();
+  const navigate = useNavigate();
+  const { execute, loading } = useFetch(`${BACKEND_BASE_URL}/api/user/login`, { skip: true });
+
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>){
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = {
-      fullName: formData.get("fullName") as string,
+    const payload = {
       email: formData.get("email") as string,
       password: formData.get("password") as string,
-      terms: formData.get("terms") === "on",
+      // terms: formData.get("terms") === "on",
     };
 
-    console.log(data);
+    const { data } = await execute({
+      method: "POST",
+      body: payload,
+    });
+
+    setUser(data);
+    navigate("/dashboard");
   }
 
   return (
     <div className="login-form-container">
+      {loading && <LoadingPage />}
       <div className="login-form-logo-container">
         <div className="login-form-logo">Momentum</div>
         <div className="login-form-logo-subtext">Precision Workplace</div>

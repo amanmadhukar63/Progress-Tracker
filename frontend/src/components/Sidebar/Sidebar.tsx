@@ -14,7 +14,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 export default function Sidebar(){
 
   const navigate = useNavigate();
-  const { clearLocalStorage } = useLocalStorage();
+  const { clearLocalStorage, getUser } = useLocalStorage();
 
   const menuItems = [
     {
@@ -115,9 +115,9 @@ export default function Sidebar(){
         />
       </div>
       <div className="sidebar-container__user-container">
-        <div className="profile-picture">A</div>
+        <div className="profile-picture">{getUser()?.name?.[0] ?? "A"}</div>
         <div className="profile-info">
-          <div className="profile-name">Aman Madhukar</div>
+          <div className="profile-name">{ getUser().name ?? "Aman Madhukar"}</div>
           <div className="plan-name">Pro Plan</div>
         </div>
       </div>
