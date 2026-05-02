@@ -61,7 +61,7 @@ export default function Home() {
           Master Your <span className="gradient-text">Momentum</span>
         </div>
         <div className="home-container__subtext">
-          Kinetic is a high-end workspace designed for precision progress. Experience a friction-less workflow that turns long-term goals into daily execution.
+          Momentum is a high-end workspace designed for precision progress. Experience a friction-less workflow that turns long-term goals into daily execution.
         </div>
         <div className="home-container__btn-container">
           <Button
