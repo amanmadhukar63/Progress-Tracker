@@ -50,7 +50,7 @@ export default function Navbar() {
         </div>
         <div className="navbar-container__search-bar" tabIndex={0}>
           <img src={SearchIcon} alt="search-icon" />
-          <div className="placeholder-text">Search tasks, goals, or metrics...</div>
+          <div className="placeholder-text"></div>
         </div>
       </div>
       <div className="navbar-container__notification">

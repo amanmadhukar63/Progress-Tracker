@@ -52,6 +52,14 @@
       letter-spacing: 0px;
       vertical-align: middle;
       color: $plan-text;
+
+      &::before {
+        content: "Search tasks, goals, or metrics...";
+
+        @media (max-width: 435px) {
+          content: "Search...";
+        }
+      }
     }
   }
 
