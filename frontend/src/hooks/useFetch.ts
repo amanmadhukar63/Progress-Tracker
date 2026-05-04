@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useLocalStorage } from "./useLocalStorage";
 
 type UseFetchOptions = {
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
@@ -22,6 +23,9 @@ export function useFetch<T = any>(
 ): UseFetchResponse<T> {
   const { method = "GET", headers = {}, body, skip = false } = options;
 
+  const { getToken } = useLocalStorage();
+  const token = getToken();
+
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(!skip);
   const [error, setError] = useState<string | null>(null);
@@ -33,6 +37,13 @@ export function useFetch<T = any>(
       const finalHeaders = { ...headers, ...(override?.headers || {}) };
       const finalBody = override?.body ?? body;
 
+      let tokenHeader = {};
+      if(token) {
+        tokenHeader = {
+          "Authorization": `Bearer ${token}`
+        }
+      }
+
       setLoading(true);
       setError(null);
 
@@ -41,6 +52,7 @@ export function useFetch<T = any>(
           method: finalMethod,
           headers: {
             "Content-Type": "application/json",
+            ...tokenHeader,
             ...finalHeaders,
           },
           credentials: "include",
