@@ -11,6 +11,14 @@ const userSchema = new Schema<IUser>({
     required: true,
     unique: true
   },
+  emailVerified: {
+    type: Boolean,
+    default: false
+  },
+  otp: {
+    type: String,
+    default: ""
+  },
   password: {
     type: String,
     required: true
@@ -21,5 +29,7 @@ const userSchema = new Schema<IUser>({
   }
 },
 { timestamps: true });
+
+userSchema.index({ email: 1 });
 
 export default model<IUser>("User", userSchema);
