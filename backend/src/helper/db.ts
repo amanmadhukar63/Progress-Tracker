@@ -1,15 +1,13 @@
-import mongoose from "mongoose";
-import { MONGO_URI } from "../config/env.js";
+import pkg from 'pg';
+import { PSQL_DB_URI } from "../config/env.js";
 
-export async function connectDB(){
-  try {
+const { Pool } = pkg;
 
-    await mongoose.connect(MONGO_URI);
-    console.log("✅ MongoDB connected");
+const pool = new Pool({
+  connectionString: PSQL_DB_URI,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
-  } catch (error) {
-
-    console.error("❌ MongoDB error:", error);
-    process.exit(1);
-  }
-}
+export default pool;
