@@ -1,8 +1,8 @@
 import app from './app.js';
 import { PORT } from './config/env.js';
-import pool from './helper/db.js';
+import client from './helper/db.js';
 
-pool.query('SELECT NOW()')
+client.connect()
 .then(()=>{
   app.listen(PORT, ()=>{
     console.log("Server is running on port", PORT);

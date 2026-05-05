@@ -1,13 +1,6 @@
-import pkg from 'pg';
+import { Client } from 'pg';
 import { PSQL_DB_URI } from "../config/env.js";
 
-const { Pool } = pkg;
+const pgClient = new Client(PSQL_DB_URI);
 
-const pool = new Pool({
-  connectionString: PSQL_DB_URI,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-
-export default pool;
+export default pgClient;

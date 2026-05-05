@@ -1,35 +1,15 @@
-// import { Schema, model } from "mongoose";
-// import { IUser } from "../types/user.js";
 
-// const userSchema = new Schema<IUser>({
-//   name: {
-//     type: String,
-//     required: true
-//   },
-//   email: {
-//     type: String,
-//     required: true,
-//     unique: true
-//   },
-//   emailVerified: {
-//     type: Boolean,
-//     default: false
-//   },
-//   otp: {
-//     type: String,
-//     default: ""
-//   },
-//   password: {
-//     type: String,
-//     required: true
-//   },
-//   refreshToken: {
-//     type: String,
-//     required: true
-//   }
-// },
-// { timestamps: true });
 
-// userSchema.index({ email: 1 });
-
-// export default model<IUser>("User", userSchema);
+export const createUserTable = `
+  CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    email_verified BOOLEAN DEFAULT FALSE,
+    otp VARCHAR(6) DEFAULT '',
+    password TEXT NOT NULL,
+    refresh_token TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+`;
