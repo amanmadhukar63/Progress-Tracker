@@ -10,9 +10,10 @@ app.use(cors({
   ],
   credentials: true,
 }));
+// app.options('*', cors());
 app.use(express.json());
 
-// app.use('/api/user', userRouter);
+app.use('/api/user', userRouter);
 
 app.get('/',(req,res)=>{
   res.send("Server is running");

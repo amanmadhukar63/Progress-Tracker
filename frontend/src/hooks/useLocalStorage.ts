@@ -22,7 +22,7 @@ export function useLocalStorage() {
 
   const getToken = () => {
     try {
-      return getUser().token;
+      return getUser()?.token ?? null;
     } catch (error) {
       console.error("Error reading localStorage key:", error);
       return null;

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
-import User from "../models/user.model.js";
+import client from "../helper/db.js";
 import { loginSchema, signupSchema } from "../helper/validation.js";
 import z from "zod";
 import { responseHandler } from "../helper/response.js";
@@ -28,9 +28,10 @@ export async function signup(
 
     const { name, email, password } = parsedData.data;
 
-    const existingUser = await User.findOne({ email });
+    const existingQuery = "SELECT * FROM users WHERE email=$1";
+    const existingUser = await client.query(existingQuery, [email]);
 
-    if(existingUser) {
+    if(existingUser?.rowCount && existingUser.rowCount > 0) {
       responseHandler(res, {
         message: "User already exist, Try to login",
         statusCode: 409,
@@ -46,22 +47,19 @@ export async function signup(
       email
     }, JWT_SECRET, { expiresIn: "15d"});
 
-    const newUser: IUser = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-      refreshToken
-    });
+    const newUserQuery = "INSERT INTO users (name, email, password, refresh_token) VALUES ($1, $2, $3, $4) RETURNING *;"
+    const newUser = await client.query(newUserQuery, [name, email, hashedPassword, refreshToken]);
 
     const token = await jwt.sign({
+      id: newUser.rows[0].id,
       name,
       email
-    }, JWT_SECRET, { expiresIn: "15m"});
+    }, JWT_SECRET, { expiresIn: "1h"});
 
     const userResponse = {
-      id: newUser._id,
-      name: newUser.name,
-      email: newUser.email,
+      id: newUser.rows[0].id,
+      name: newUser.rows[0].name,
+      email: newUser.rows[0].email,
       token,
       refreshToken
     };
@@ -102,9 +100,11 @@ export async function login(
 
     const {email, password} = parsedData.data;
 
-    const user: IUser | null = await User.findOne({ email });
+    const existingQuery = "SELECT * FROM users WHERE email=$1";
+    const existingUser = await client.query(existingQuery, [email]);
+    const userExist = existingUser?.rowCount && existingUser.rowCount>0 ? true : false;
 
-    if(!user){
+    if(!userExist){
       responseHandler(res, {
         message: "User does not exist, Pls signup",
         statusCode: 400,
@@ -113,7 +113,7 @@ export async function login(
       return;
     }
 
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(password, existingUser.rows[0].password);
 
     if(!isPasswordCorrect){
       responseHandler(res, {
@@ -125,16 +125,17 @@ export async function login(
     }
 
     const token = await jwt.sign({
-      name: user.name,
-      email: user.email,
-    }, JWT_SECRET, { expiresIn: "15m"});
+      id: existingUser.rows[0].id,
+      name: existingUser.rows[0].name,
+      email: existingUser.rows[0].email,
+    }, JWT_SECRET, { expiresIn: "1h"});
 
     const userResponse = {
-      id: user._id,
-      name: user.name,
-      email: user.email,
+      id: existingUser.rows[0].id,
+      name: existingUser.rows[0].name,
+      email: existingUser.rows[0].email,
       token,
-      refreshToken: user.refreshToken,
+      refreshToken: existingUser.rows[0].refreshToken,
     };
 
     responseHandler(res, {
