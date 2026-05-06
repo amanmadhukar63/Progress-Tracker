@@ -59,11 +59,11 @@ export function useFetch<T = any>(
           body: finalBody ? JSON.stringify(finalBody) : undefined,
         });
 
+        const result = await res.json();
         if (!res.ok) {
-          throw new Error(`Error: ${res.status}`);
+          throw new Error(result.message);
         }
 
-        const result = await res.json();
         setData(result);
         return result;
       } catch (err: any) {
