@@ -62,6 +62,10 @@ export default function Sidebar(){
     navigate("/");
   }
 
+  function handleNewGoal() {
+    navigate("/goals?create=true");
+  }
+
   return (
     <div className="sidebar-container">
       <div className="sidebar-container__logo-container" onClick={() => moveToPage("/")}>
@@ -84,6 +88,7 @@ export default function Sidebar(){
       <div className="sidebar-container__button-container">
         <Button
           title={"New Goal"}
+          onClick={handleNewGoal}
           type="button"
           style={{
             padding: "10px",
