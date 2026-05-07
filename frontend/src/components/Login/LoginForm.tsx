@@ -6,29 +6,36 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useFetch } from "../../hooks/useFetch";
 import { BACKEND_BASE_URL } from "../../vite-env.d";
 import LoadingPage from "../../pages/LoadingPage/LoadingPage";
+import { toast } from "sonner";
 
 export default function LoginForm() {
 
   const { setUser } = useLocalStorage();
   const navigate = useNavigate();
-  const { execute, loading } = useFetch(`${BACKEND_BASE_URL}/api/user/login`, { skip: true });
+  const { execute, loading, error } = useFetch(`${BACKEND_BASE_URL}/api/user/login`, { skip: true });
 
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>){
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const payload = {
-      email: formData.get("email") as string,
-      password: formData.get("password") as string,
-      // terms: formData.get("terms") === "on",
-    };
-
-    const { data } = await execute({
-      method: "POST",
-      body: payload,
-    });
-
-    setUser(data);
-    navigate("/dashboard");
+    try {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      const payload = {
+        email: formData.get("email") as string,
+        password: formData.get("password") as string,
+        // terms: formData.get("terms") === "on",
+      };
+  
+      const { data } = await execute({
+        method: "POST",
+        body: payload,
+      });
+      toast.success("Logged in Successfully");
+  
+      setUser(data);
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Error while login", err);
+      toast.error(error);
+    }
   }
 
   return (
