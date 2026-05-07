@@ -1,13 +1,7 @@
-import { Document, Types } from "mongoose";
+
 
 export enum ITaskLogStatus {
-  DONE = "done",
-  MISSED = "missed",
+  PENDING = "PENDING",
+  IN_PROGRESS = "IN_PROGRESS",
+  COMPLETED = "COMPLETED",
 };
-
-export interface ITaskLog extends Document {
-  taskId: Types.ObjectId;
-  userId: Types.ObjectId;
-  status: ITaskLogStatus;
-  date: Date;
-}
