@@ -7,6 +7,7 @@ import { goalSchema } from "../../types/validation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../Button/Button";
+import PlusIcon from "../../assets/plus-icon.svg";
 
 type FormData = z.infer<typeof goalSchema>;
 
@@ -49,9 +50,39 @@ export default function Goals() {
   }
 
   return (
-    <div>
-      Goals
-      <button onClick={handleCreateGoal}>Create</button>
+    <div className="goals-container">
+      <div className="goals-container__goals-subcontainer">
+        <div className="header">
+          <div className="left">
+            <div className="subtitle">PERFORMANCE HUB</div>
+            <div className="title">My Goals</div>
+          </div>
+          <div className="right">
+            <button onClick={handleCreateGoal}>
+              <img src={PlusIcon} alt="plus-icon" /> Create Goal
+            </button>
+          </div>
+        </div>
+
+        <div className="status-container">
+          <div className="left">
+            <div className="tab active">All</div>
+            <div className="tab">Active</div>
+            <div className="tab">Completed</div>
+          </div>
+          <div className="right">
+            <div>
+              <div className="stat-title">ACTIVE RATE</div>
+              <div className="stat success">84%</div>
+            </div>
+            <div className="line"></div>
+            <div>
+              <div className="stat-title">COMPLETED</div>
+              <div className="stat">12</div>
+            </div>
+          </div>
+        </div>
+      </div>
       <Modal
         isOpen={modalOpen}
         onRequestClose={closeModal}
