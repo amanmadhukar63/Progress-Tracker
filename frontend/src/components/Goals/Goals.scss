@@ -1,0 +1,66 @@
+@use "../../styles/variables" as *;
+
+.goal-modal-container {
+
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .field-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex: 1;
+
+      .label {
+        color: #C7C4D8;
+        font-size: 11px;
+        line-height: 16.5px;
+        letter-spacing: 0.55px;
+      }
+
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        background: $sidebar-bg;
+        border: none;
+        padding: 14px 16px;
+        border-radius: 8px;
+        caret-color: #6366f1;
+        color: #6366f1;
+        font-size: 16px;
+
+        &::placeholder {
+          color: #464555;
+          font-size: 16px;
+        }
+
+        &:focus {
+          border: 1px solid #6366f1;
+          outline: none;
+        }
+
+        &:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0 1000px #060E20 inset;
+          -webkit-text-fill-color: #6366f1;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* makes it white */
+  cursor: pointer;
+}
