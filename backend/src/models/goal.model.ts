@@ -6,7 +6,7 @@ export const createGoalTable = `
     title TEXT NOT NULL,
     description TEXT,
     status TEXT DEFAULT 'ACTIVE' 
-      CHECK( type IN ('ACTIVE', 'PAUSED', 'COMPLETED')),
+      CHECK( status IN ('ACTIVE', 'PAUSED', 'COMPLETED')),
     start_date DATE DEFAULT NOW(),
     end_date DATE,
     user_id INTEGER NOT NULL,

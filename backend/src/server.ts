@@ -6,13 +6,17 @@ import { createTaskTable } from './models/task.model.js';
 import { createTaskLogTable } from './models/taskLog.model.js';
 import { createUserTable } from './models/user.model.js';
 
+async function createTables() {
+  await client.query(createUserTable);
+  await client.query(createGoalTable);
+  await client.query(createTaskTable);
+  await client.query(createTaskLogTable);
+}
+
 client.connect()
 .then(()=>{
   app.listen(PORT, ()=>{
-    client.query(createUserTable);
-    client.query(createTaskLogTable);
-    client.query(createTaskTable);
-    client.query(createGoalTable);
+    createTables();
     console.log("Server is running on port", PORT);
   })
 })
