@@ -3,7 +3,7 @@ import "./GoalsPage.scss";
 
 export default function GoalsPage() {
   return (
-    <div>
+    <div className="goals-page-container">
       <Goals />
     </div>
   );

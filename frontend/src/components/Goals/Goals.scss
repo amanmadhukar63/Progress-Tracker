@@ -1,5 +1,150 @@
 @use "../../styles/variables" as *;
 
+.goals-container {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  flex: 1;
+  overflow: scroll;
+
+  &__goals-subcontainer {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: start;
+        
+        .subtitle {
+          font-weight: 800;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 4.8px;
+          vertical-align: middle;
+          text-transform: uppercase;
+          color: $primary-subtext;
+        }
+
+        .title {
+          font-weight: 800;
+          font-size: 48px;
+          line-height: 48px;
+          letter-spacing: -2.4px;
+          vertical-align: middle;
+
+        }
+      }
+
+      .right {
+        align-self: flex-end;
+
+        button {
+          border: 1px solid #FFFFFF0D;
+          background: #222A3D;
+          padding: 12px 20px;
+          padding-left: 18px;
+          border-radius: 12px;
+          display: flex;
+          gap: 12px;
+          box-shadow: 0px 1px 2px 0px #0000000D;
+          color: #DAE2FD;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0px;
+          text-align: center;
+          vertical-align: middle;
+          cursor: pointer;
+
+          &:hover {
+            box-shadow: 0 0 10px #9c62ff34;
+          }
+        }
+      }
+    }
+
+    .status-container {
+      display: flex;
+      justify-content: space-between;
+
+      .left {
+        padding: 6px;
+        border-radius: 12px;
+        border: 1px solid #FFFFFF0D;
+        background: #131B2E;
+        display: flex;
+
+        .tab {
+          padding: 8px 24px;
+          border-radius: 8px;
+          color: #94A3B8;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 0px;
+          text-align: center;
+          vertical-align: middle;
+          cursor: pointer;
+        }
+
+        .active {
+          background: #FFFFFF1A;
+          box-shadow: 0px 1px 2px 0px #0000000D;
+          color: $primary-text;
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 0px;
+          text-align: center;
+          vertical-align: middle;
+        }
+      }
+
+      .right {
+        display: flex;
+        padding: 0 16px;
+        gap: 32px;
+
+        .line {
+          width: 1px;
+          opacity: 1;
+          background: #ffffff4b;
+        }
+
+        .stat-title {
+          color: #64748B;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 1.6px;
+          vertical-align: middle;
+          text-transform: uppercase;
+        }
+
+        .stat {
+          color: #DAE2FD;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 28px;
+          letter-spacing: 0px;
+          vertical-align: middle;
+        }
+
+        .success {
+          color: #4EDEA3;
+        }
+      }
+    }
+  }
+}
+
 .goal-modal-container {
 
   &__title {
