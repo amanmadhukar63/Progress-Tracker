@@ -75,13 +75,29 @@
       justify-content: space-between;
 
       .left {
+        position: relative;
         padding: 6px;
         border-radius: 12px;
         border: 1px solid #FFFFFF0D;
         background: #131B2E;
         display: flex;
 
+        .indicator {
+          position: absolute;
+          top: 6px;
+          left: 0;
+          height: calc(100% - 12px);
+          background: #FFFFFF1A;
+          border-radius: 8px;
+          z-index: 0;
+          width: 0;
+        }
+
         .tab {
+          position: relative;
+          z-index: 1;
+          transition: color 0.2s ease;
+
           padding: 8px 24px;
           border-radius: 8px;
           color: #94A3B8;
@@ -92,18 +108,15 @@
           text-align: center;
           vertical-align: middle;
           cursor: pointer;
-        }
-
-        .active {
-          background: #FFFFFF1A;
-          box-shadow: 0px 1px 2px 0px #0000000D;
-          color: $primary-text;
-          font-weight: 700;
-          font-size: 14px;
-          line-height: 20px;
-          letter-spacing: 0px;
-          text-align: center;
-          vertical-align: middle;
+          
+          &.active {
+            color: $primary-text;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0px;
+            text-align: center;
+            vertical-align: middle;
+          }
         }
       }
 
