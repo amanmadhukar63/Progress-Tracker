@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../Button/Button";
 import PlusIcon from "../../assets/plus-icon.svg";
 import { animate } from "animejs";
+import GoalCard from "../GoalCard/GoalCard";
 
 type FormData = z.infer<typeof goalSchema>;
 type StatusTab = "all" | "active" | "completed";
@@ -155,6 +156,13 @@ export default function Goals() {
               <div className="stat">12</div>
             </div>
           </div>
+        </div>
+
+        <div className="cards-container">
+          <GoalCard />
+          <GoalCard />
+          <GoalCard />
+          <GoalCard />
         </div>
       </div>
 
