@@ -7,11 +7,29 @@
   border-radius: 12px;
 
   &__header {
+    display: flex;
 
+    .left {
+      align-self: flex-end;
+    }
+
+    .right {
+      align-self: flex-start;
+    }
   }
 
   &__titile-container {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
 
+    .title {
+
+    }
+
+    .subtitle {
+
+    }
   }
 
   &__progress-bar {
@@ -19,6 +37,6 @@
   }
 
   &__date-container {
-    
+    text-align: left;
   }
 }
