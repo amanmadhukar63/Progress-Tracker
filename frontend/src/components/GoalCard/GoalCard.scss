@@ -24,11 +24,22 @@
     flex-direction: column;
 
     .title {
-      border: 1px solid green;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: -0.5px;
+      vertical-align: middle;
+      color: #DAE2FD;
+      padding-top: 17px;
     }
 
     .subtitle {
-      border: 1px solid green;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22.75px;
+      letter-spacing: 0px;
+      vertical-align: middle;
+      color: #64748B;
     }
   }
 

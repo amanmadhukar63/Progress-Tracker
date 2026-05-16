@@ -11,8 +11,8 @@ export default function GoalCard() {
       </div>
 
       <div className="card-container__titile-container">
-        <div className="title"></div>
-        <div className="subtitle"></div>
+        <div className="title">Learn Three.js</div>
+        <div className="subtitle">Master 3D web development and interactive shaders.</div>
       </div>
 
       <div className="card-container__progress-bar"></div>
