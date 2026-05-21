@@ -11,7 +11,7 @@ import PlusIcon from "../../assets/plus-icon.svg";
 import { animate } from "animejs";
 import GoalCard from "../GoalCard/GoalCard";
 
-type FormData = z.infer<typeof goalSchema>;
+type FormData = z.input<typeof goalSchema>;
 type StatusTab = "all" | "active" | "completed";
 
 export default function Goals() {
@@ -73,6 +73,7 @@ export default function Goals() {
   }
 
   async function onSubmit(data: FormData) {
+    console.log("printing....")
     try {
       // simulate API call
       await new Promise((res) => setTimeout(res, 1000));
@@ -169,6 +170,11 @@ export default function Goals() {
       <Modal
         isOpen={modalOpen}
         onRequestClose={closeModal}
+        style={{
+          overlay: {
+            zIndex: 2
+          }
+        }}
       >
         <div className="goal-modal-container">
           <h3 className="goal-modal-container__title">Create Goal</h3>
@@ -182,7 +188,7 @@ export default function Goals() {
 
               <input {...register("title")} placeholder="Title" />
 
-              {errors.title && <p>{errors.title.message}</p>}
+              {errors.title && <p className="error">{errors.title.message}</p>}
             </div>
 
             <div className="field">
@@ -193,7 +199,18 @@ export default function Goals() {
                 placeholder="Description"
               />
 
-              {errors.description && <p>{errors.description.message}</p>}
+              {errors.description && <p className="error">{errors.description.message}</p>}
+            </div>
+
+            <div className="field">
+              <label className="label">Status *</label>
+
+              <input
+                {...register("status")}
+                placeholder="Status"
+              />
+
+              {errors.status && <p className="error">{errors.status.message}</p>}
             </div>
 
             <div className="field-container">
@@ -206,7 +223,7 @@ export default function Goals() {
                   type="date"
                 />
 
-                {errors.start_date && <p>{errors.start_date.message}</p>}
+                {errors.start_date && <p className="error">{errors.start_date.message}</p>}
               </div>
 
               <div className="field">
@@ -218,7 +235,7 @@ export default function Goals() {
                   type="date"
                 />
 
-                {errors.end_date && <p>{errors.end_date.message}</p>}
+                {errors.end_date && <p className="error">{errors.end_date.message}</p>}
               </div>
             </div>
 
