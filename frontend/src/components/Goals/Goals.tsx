@@ -10,6 +10,7 @@ import Button from "../Button/Button";
 import PlusIcon from "../../assets/plus-icon.svg";
 import { animate } from "animejs";
 import GoalCard from "../GoalCard/GoalCard";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 type FormData = z.input<typeof goalSchema>;
 type StatusTab = "all" | "active" | "completed";
@@ -30,6 +31,8 @@ export default function Goals() {
 
   const [activeTab, setActiveTab] = useState<StatusTab>("all");
   const [hoveredTab, setHoveredTab] = useState<StatusTab | null>(null);
+
+  const {getUser} = useLocalStorage();
 
   const currentVisibleTab = hoveredTab || activeTab;
 
@@ -78,7 +81,18 @@ export default function Goals() {
       // simulate API call
       await new Promise((res) => setTimeout(res, 1000));
 
-      console.log(data);
+      const response = await fetch("http://localhost:3000/api/goal/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          userId: getUser()?.id
+        })
+      })
+      const res = await response.json();
+      console.log(res);
     } catch (err) {
       setError("root", {
         message: "Something went wrong. Try again.",
