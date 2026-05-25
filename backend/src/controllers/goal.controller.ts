@@ -25,10 +25,25 @@ export async function createGoal(req: Request, res: Response){
   }
 }
 
-export async function getGoals() {
+export async function getGoals(req: Request, res: Response) {
   try {
+    const { limit = 12, offset = 0 } = req.query;
+    
+    const query = "SELECT * FROM goals LIMIT $1 OFFSET $2";
+    const goals = await client.query(query, [limit, offset]);
+
+    responseHandler(res, {
+      message: "Goal fetched successfully",
+      statusCode: 200,
+      data: goals?.rows
+    });
     
   } catch (error) {
-    
+    console.error("Error while fetching goals ", error);
+    responseHandler(res, {
+      message: "Server Error",
+      statusCode: 500,
+      error
+    })
   }
 }

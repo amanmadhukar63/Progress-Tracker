@@ -11,6 +11,7 @@ import PlusIcon from "../../assets/plus-icon.svg";
 import { animate } from "animejs";
 import GoalCard from "../GoalCard/GoalCard";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import LoadingPage from "../../pages/LoadingPage/LoadingPage";
 
 type FormData = z.input<typeof goalSchema>;
 type StatusTab = "all" | "active" | "completed";
@@ -31,6 +32,8 @@ export default function Goals() {
 
   const [activeTab, setActiveTab] = useState<StatusTab>("all");
   const [hoveredTab, setHoveredTab] = useState<StatusTab | null>(null);
+  const [goalList, setGoalList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const {getUser} = useLocalStorage();
 
@@ -65,6 +68,21 @@ export default function Goals() {
     });
   }, [activeTab, hoveredTab, currentVisibleTab]);
 
+  useEffect(() => {
+    setLoading(true);
+    fetch("http://localhost:3000/api/goal/get?limit=10&offset=0", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    .then(data => data.json())
+    .then((data) => {
+      setGoalList(data?.data ?? []);
+      setLoading(false);
+    })
+  }, []);
+
   function closeModal() {
     setModalOpen(false);
     setSearchParams("?create=false", { replace: true });
@@ -76,7 +94,6 @@ export default function Goals() {
   }
 
   async function onSubmit(data: FormData) {
-    console.log("printing....")
     try {
       // simulate API call
       await new Promise((res) => setTimeout(res, 1000));
@@ -102,6 +119,7 @@ export default function Goals() {
 
   return (
     <div className="goals-container">
+      {loading && <LoadingPage />}
       <div className="goals-container__goals-subcontainer">
         <div className="header">
           <div className="left">
@@ -175,9 +193,13 @@ export default function Goals() {
 
         <div className="cards-container">
           <GoalCard />
-          <GoalCard />
-          <GoalCard />
-          <GoalCard />
+          {goalList.map((goal: any) => (
+            <GoalCard
+              key={goal?.id}
+              title={goal?.title}
+              description={goal?.description}
+            />
+          ))}
         </div>
       </div>
 

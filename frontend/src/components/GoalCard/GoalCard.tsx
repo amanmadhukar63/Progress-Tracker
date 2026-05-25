@@ -1,6 +1,9 @@
 import "./GoalCard.scss";
 
-export default function GoalCard() {
+export default function GoalCard({ 
+  title = "Learn Three.js",
+  description = "Master 3D web development and interactive shaders."
+}) {
 
 
   return (
@@ -11,8 +14,8 @@ export default function GoalCard() {
       </div>
 
       <div className="card-container__titile-container">
-        <div className="title">Learn Three.js</div>
-        <div className="subtitle">Master 3D web development and interactive shaders.</div>
+        <div className="title">{title}</div>
+        <div className="subtitle">{description}</div>
       </div>
 
       <div className="card-container__progress-bar"></div>
