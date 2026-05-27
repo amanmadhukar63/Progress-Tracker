@@ -12,6 +12,8 @@ import { animate } from "animejs";
 import GoalCard from "../GoalCard/GoalCard";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import LoadingPage from "../../pages/LoadingPage/LoadingPage";
+import { useQuery } from "@tanstack/react-query";
+import { getGoals } from "../../api/goalsApi";
 
 type FormData = z.input<typeof goalSchema>;
 type StatusTab = "all" | "active" | "completed";
@@ -33,7 +35,6 @@ export default function Goals() {
   const [activeTab, setActiveTab] = useState<StatusTab>("all");
   const [hoveredTab, setHoveredTab] = useState<StatusTab | null>(null);
   const [goalList, setGoalList] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const {getUser} = useLocalStorage();
 
@@ -45,6 +46,14 @@ export default function Goals() {
   const [modalOpen, setModalOpen] = useState(
     isOpen?.toLowerCase() === "true" ? true : false
   );
+
+  const {
+    data,
+    isLoading,
+  } = useQuery({
+    queryKey: ["goals", 10, 0],
+    queryFn: getGoals,
+  });
 
   useEffect(() => {
     const tabs = tabsRef.current?.querySelectorAll(".tab");
@@ -69,19 +78,10 @@ export default function Goals() {
   }, [activeTab, hoveredTab, currentVisibleTab]);
 
   useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:3000/api/goal/get?limit=10&offset=0", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      }
-    })
-    .then(data => data.json())
-    .then((data) => {
+    if(!isLoading){
       setGoalList(data?.data ?? []);
-      setLoading(false);
-    })
-  }, []);
+    }
+  }, [isLoading]);
 
   function closeModal() {
     setModalOpen(false);
@@ -119,7 +119,7 @@ export default function Goals() {
 
   return (
     <div className="goals-container">
-      {loading && <LoadingPage />}
+      {isLoading && <LoadingPage />}
       <div className="goals-container__goals-subcontainer">
         <div className="header">
           <div className="left">
