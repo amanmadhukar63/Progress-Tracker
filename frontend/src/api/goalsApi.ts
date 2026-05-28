@@ -22,3 +22,7 @@ export const getGoals = async ({
 
   return data;
 };
+
+export async function createGoal() {
+  
+}
