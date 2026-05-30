@@ -23,5 +23,21 @@ export const getGoals = async ({
   return data;
 };
 
-export async function createGoal() {
+export async function createGoal( params: any) {
+  
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/goal/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(params)
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch users");
+  }
+
+  const data = await response.json();
+
+  return data;
 }

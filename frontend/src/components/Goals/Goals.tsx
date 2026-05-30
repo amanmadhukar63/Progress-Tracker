@@ -12,8 +12,8 @@ import { animate } from "animejs";
 import GoalCard from "../GoalCard/GoalCard";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import LoadingPage from "../../pages/LoadingPage/LoadingPage";
-import { useQuery } from "@tanstack/react-query";
-import { getGoals } from "../../api/goalsApi";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createGoal, getGoals } from "../../api/goalsApi";
 
 type FormData = z.input<typeof goalSchema>;
 type StatusTab = "all" | "active" | "completed";
@@ -54,6 +54,13 @@ export default function Goals() {
     queryKey: ["goals", 10, 0],
     queryFn: getGoals,
   });
+
+  const mutation = useMutation({
+    mutationFn: createGoal,
+    onSuccess: (data) => {
+      console.log({data});
+    }
+  })
 
   useEffect(() => {
     const tabs = tabsRef.current?.querySelectorAll(".tab");
@@ -96,20 +103,11 @@ export default function Goals() {
   async function onSubmit(data: FormData) {
     try {
       // simulate API call
-      await new Promise((res) => setTimeout(res, 1000));
 
-      const response = await fetch("http://localhost:3000/api/goal/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...data,
-          userId: getUser()?.id
-        })
-      })
-      const res = await response.json();
-      console.log(res);
+      mutation.mutate({
+        ...data,
+        userId: getUser()?.id
+      });
     } catch (err) {
       setError("root", {
         message: "Something went wrong. Try again.",
