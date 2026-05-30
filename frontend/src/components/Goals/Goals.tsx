@@ -12,7 +12,7 @@ import { animate } from "animejs";
 import GoalCard from "../GoalCard/GoalCard";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import LoadingPage from "../../pages/LoadingPage/LoadingPage";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createGoal, getGoals } from "../../api/goalsApi";
 
 type FormData = z.input<typeof goalSchema>;
@@ -47,6 +47,8 @@ export default function Goals() {
     isOpen?.toLowerCase() === "true" ? true : false
   );
 
+  const queryClient = useQueryClient();
+
   const {
     data,
     isLoading,
@@ -58,6 +60,9 @@ export default function Goals() {
   const mutation = useMutation({
     mutationFn: createGoal,
     onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ['goals']
+      })
       console.log({data});
     }
   })
