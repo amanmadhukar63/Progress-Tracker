@@ -63,6 +63,7 @@ export default function Goals() {
       queryClient.invalidateQueries({
         queryKey: ['goals']
       })
+      
       console.log({data});
     }
   })
