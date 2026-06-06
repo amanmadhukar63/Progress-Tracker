@@ -25,7 +25,7 @@ export const getGoals = async ({
 
 export async function createGoal( params: any) {
   
-  const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/goal/create`, {
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/goal/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
