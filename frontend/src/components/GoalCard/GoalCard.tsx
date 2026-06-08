@@ -16,6 +16,7 @@ export default function GoalCard({
       <div className="card-container__titile-container">
         <div className="title">{title}</div>
         <div className="subtitle">{description}</div>
+        
       </div>
 
       <div className="card-container__progress-bar"></div>
